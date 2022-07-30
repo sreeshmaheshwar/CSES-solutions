@@ -5,7 +5,8 @@ int main() {
 	ios::sync_with_stdio(0); 
 	cin.tie(0);
 
-	int n, m; cin >> n >> m;
+	int n, m;
+	cin >> n >> m;
 	vector<vector<int>> adj(n), transpose_adj(n);
 	for (int i = 0; i < m; ++i) {
 		int u, v; cin >> u >> v;
@@ -42,9 +43,9 @@ int main() {
 			dfs_transpose(u);
 		}
 	}
+	
 	cout << comp_cnt << endl;
 	for (int i = 0; i < n; ++i) {
-		assert(kingdom[i]);
 		cout << kingdom[i] << " ";
 	}
 	cout << endl;
