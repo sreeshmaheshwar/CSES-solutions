@@ -1,45 +1,45 @@
-import java.security.InvalidParameterException;
+import java.lang.IllegalArgumentException;
 import java.util.Scanner;
  
 public class Solution {
  
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
-    System.out.println(Matrix.fib(scanner.nextLong()));
+    System.out.println(SquareMatrix.fibonacci(scanner.nextLong()));
   }
 }
 
-class Matrix {
+class SquareMatrix {
  
   private final static int MOD = (int) (1e9 + 7);
   private final long[][] a;
   private final int n;
  
-  public Matrix(long[][] a) {
+  public SquareMatrix(long[][] a) {
     this.a = a;
     n = a.length;
     assert(a[0].length == n);
   }
  
-  public Matrix(int n) {
+  public SquareMatrix(int n) {
     this.n = n;
     a = new long[n][n];
   }
  
-  public static Matrix identity(int n) {
-    Matrix res = new Matrix(n);
+  public static SquareMatrix identity(int n) {
+    SquareMatrix res = new SquareMatrix(n);
     for (int i = 0; i < n; ++i) {
       res.a[i][i] = 1;
     }
     return res;
   }
  
-  // naive O(n^3) implementation
-  public static Matrix multiply(Matrix x, Matrix y) {
+  // naive O(n^3) matrix multiplication
+  public static SquareMatrix multiply(SquareMatrix x, SquareMatrix y) {
     if (x.n != y.n) {
-      throw new InvalidParameterException("Square matrices must have same dimensions to be multiplied");
+      throw new IllegalArgumentException("Square matrices must have same dimensions to be multiplied");
     }
-    Matrix res = new Matrix(x.n);
+    SquareMatrix res = new SquareMatrix(x.n);
     for (int i = 0; i < x.n; ++i) {
       for (int j = 0; j < x.n; ++j) {
         for (int k = 0; k < x.n; ++k) {
@@ -51,9 +51,9 @@ class Matrix {
   }
  
   // binary exponentiation adapted for a matrix base - works in O(n^3 * log(exponent))
-  public Matrix power(long exponent) {
-    Matrix current = this;
-    Matrix res = identity(n);
+  public SquareMatrix power(long exponent) {
+    SquareMatrix current = this;
+    SquareMatrix res = identity(n);
     while (exponent > 0) {
       if ((exponent & 1) == 1) {
         res = multiply(res, current);
@@ -76,8 +76,11 @@ class Matrix {
     return sb.toString();
   }
  
-  public static long fib(long n) {
-    Matrix fibMatrix = new Matrix(new long[][]{new long[]{1, 1}, new long[]{1, 0}});
-    return fibMatrix.power(n).a[0][1];
+  public static long fibonacci(long n) {
+    SquareMatrix matrix = new SquareMatrix(new long[][]{
+      new long[]{1, 1}, 
+      new long[]{1, 0}
+    });
+    return matrix.power(n).a[0][1];
   }
 }
