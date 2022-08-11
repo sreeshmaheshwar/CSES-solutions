@@ -4,15 +4,10 @@ import Control.Monad ( ap, replicateM )
 import qualified Data.ByteString.Char8 as BS
 
 getKthRemoved :: Int -> Int -> Int
-getKthRemoved 1 _
-  = 1
-getKthRemoved n k
-  | nextK <= 0 = if ans > n then ans `mod` n else ans
-  | otherwise  = nextAns * 2 + if odd n then 1 else -1
+getKthRemoved n k 
+  = solve (k * 2)
   where
-    nextK   = k - (n + 1) `div` 2
-    ans     = k * 2
-    nextAns = getKthRemoved (n `div` 2) nextK
+    solve x = if x > n then solve ((x - n) * 2 - 1) else x
 
 main :: IO ()
 main = do
