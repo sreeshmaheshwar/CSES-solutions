@@ -6,16 +6,15 @@ import qualified Data.ByteString.Char8 as BS
  
 main :: IO ()
 main = do
-  (_, l) <- evalState parseInput <$> BS.getContents
-  print . length . group . sort $ l
+  inputList <- evalState parseInput <$> BS.getContents
+  print . length . group . sort $ inputList
   
 -- FAST INPUT PARSING:
  
-parseInput :: State BS.ByteString (Int, [Int])
+parseInput :: State BS.ByteString [Int]
 parseInput = do
   n <- readInt
-  l <- replicateM n readInt
-  return (n, l)
+  replicateM n readInt
   where
     readInt = state $ fromJust . BS.readInt . BS.dropWhile isSpace
  
