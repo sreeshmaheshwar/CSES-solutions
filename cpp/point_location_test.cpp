@@ -1,6 +1,6 @@
-#include <bits/stdc++.h>
-using namespace std;
- 
+#include <iostream>
+#include <vector>
+
 struct Vector {
 
 	long long x, y;
@@ -19,16 +19,16 @@ struct Vector {
 };
 
 int main() {
-	ios::sync_with_stdio(0);
-	cin.tie(0);
+	std::ios::sync_with_stdio(0);
+	std::cin.tie(0);
  
 	int test_cases; 
-	cin >> test_cases;
+	std::cin >> test_cases;
 	while (test_cases--) {
-		vector<Vector> points(3);
-		for (Vector &point : points) cin >> point.x >> point.y;
+		std::vector<Vector> points(3);
+		for (Vector &point : points) std::cin >> point.x >> point.y;
 		long long cross_prod = (points[2] - points[0]) * (points[1] - points[0]);
-		cout << (cross_prod == 0 ? "TOUCH" : (cross_prod < 0 ? "LEFT" : "RIGHT")) << '\n';
+		std::cout << (cross_prod == 0 ? "TOUCH" : (cross_prod < 0 ? "LEFT" : "RIGHT")) << '\n';
 	}
  
 	return 0;

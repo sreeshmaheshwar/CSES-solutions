@@ -1,26 +1,24 @@
-#include <bits/stdc++.h>
-using namespace std;
- 
+#include <iostream>
+#include <vector>
+
 int main() {
-	ios::sync_with_stdio(0);
-	cin.tie(0);
+	std::ios::sync_with_stdio(0);
+	std::cin.tie(0);
  
-	int n;
-	cin >> n;
-	vector<int> a(n);
+	int n; std::cin >> n;
+	std::vector<int> a(n);
+	for (int i = 0; i < n; ++i) std::cin >> a[i];
+
+	std::vector<int> subseq;
 	for (int i = 0; i < n; ++i) {
-		cin >> a[i];
-	}
-	vector<int> subseq;
-	for (int i = 0; i < n; ++i) {
-		auto it = lower_bound(subseq.begin(), subseq.end(), a[i]);
+		auto it = std::lower_bound(subseq.begin(), subseq.end(), a[i]);
 		if (it == subseq.end()) {
 			subseq.push_back(a[i]);
 		} else {
 			*it = a[i];
 		}
 	}
-	cout << (int) subseq.size() << '\n';
+	std::cout << subseq.size() << '\n';
  
 	return 0;
 }

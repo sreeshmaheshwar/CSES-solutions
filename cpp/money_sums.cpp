@@ -1,25 +1,24 @@
-#include <bits/stdc++.h>
-using namespace std;
-const int MXSUM = 1e5 + 5;
- 
+#include <iostream>
+#include <bitset>
+const int MAX_SUM = 1e5;
+
 int main() {
-	ios::sync_with_stdio(0);
-	cin.tie(0);
+	std::ios::sync_with_stdio(0);
+	std::cin.tie(0);
  
 	int n;
-	cin >> n;
-	bitset<MXSUM> sums;
+	std::cin >> n;
+	std::bitset<MAX_SUM + 1> sums;
 	sums[0] = 1;
 	for (int i = 0; i < n; ++i) {
-		int x;
-		cin >> x;
-		sums |= (sums << x);
+		int element;
+		std::cin >> element;
+		sums |= (sums << element);
 	}
-	cout << sums.count() - 1 << '\n';
-	for (int i = 1; i < MXSUM; ++i) {
+	std::cout << sums.count() - 1 << '\n';
+	for (int i = 1; i <= MAX_SUM; ++i)
 		if (sums[i])
-			cout << i << " ";
-	}
+			std::cout << i << " ";
  
 	return 0;
 }

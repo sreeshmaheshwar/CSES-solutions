@@ -1,27 +1,30 @@
-#include <bits/stdc++.h>
-using namespace std;
- 
+#include <iostream>
+#include <map>
+#include <vector>
+#include <utility>
+
 int main() {
-	ios::sync_with_stdio(0);
-	cin.tie(0);
+	std::ios::sync_with_stdio(0);
+	std::cin.tie(0);
  
 	int n, x;
-	cin >> n >> x;
-	vector<int> a(n);
-	for (int& element : a) cin >> element;
-	map<int, pair<int, int>> mp;
+	std::cin >> n >> x;
+	std::vector<int> a(n);
+	for (int& element : a) std::cin >> element;
+	std::map<int, std::pair<int, int>> sum_position;
 	for (int i = 0; i < n; ++i) {
 		for (int j = i + 1; j < n; ++j) {
-			int need = x - a[i] - a[j];
-			if (mp.count(need)) {
-				cout << i+1 << " " << j+1 << " " << mp[need].first+1 << " " << mp[need].second+1;
+			int target_sum = x - a[i] - a[j];
+			if (sum_position.count(target_sum)) {
+				std::cout << i+1 << " " << j+1 << " " << sum_position[target_sum].first+1 << " " << sum_position[target_sum].second+1;
 				return 0;
 			}
 		}
-		for (int j = 0; j < i; ++j)
-			mp[a[i] + a[j]] = {i, j};
+		for (int j = 0; j < i; ++j) {
+			sum_position[a[i] + a[j]] = {i, j};
+		}
 	}
-	cout << "IMPOSSIBLE";
+	std::cout << "IMPOSSIBLE";
  
 	return 0;
 }

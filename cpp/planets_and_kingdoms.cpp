@@ -1,54 +1,62 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <iostream>
+#include <vector>
+#include <functional>
  
 int main() {
-	ios::sync_with_stdio(0); 
-	cin.tie(0);
+	std::ios::sync_with_stdio(0); 
+	std::cin.tie(0);
 
-	int n, m;
-	cin >> n >> m;
-	vector<vector<int>> adj(n), transpose_adj(n);
+	int n, m; 
+	std::cin >> n >> m;
+	std::vector<std::vector<int>> adj(n), transpose_adj(n);
 	for (int i = 0; i < m; ++i) {
-		int u, v; cin >> u >> v;
+		int u, v; 
+		std::cin >> u >> v;
 		--u, --v;
 		adj[u].push_back(v);
 		transpose_adj[v].push_back(u);
 	}
  
-	vector<bool> vis(n, false);
-	vector<int> order;
-	function<void(int)> dfs = [&](int u) {
-		vis[u] = 1;
+	std::vector<bool> visited(n, false);
+	std::vector<int> order;
+	std::function<void(int)> dfs = [&](int u) {
+		visited[u] = 1;
 		for (int v : adj[u]) {
-			if (!vis[v]) dfs(v);
+			if (!visited[v]) {
+				dfs(v);
+			}
 		}
 		order.push_back(u);
 	};
 	for (int i = 0; i < n; ++i) {
-		if (!vis[i]) dfs(i);
+		if (!visited[i]) {
+			dfs(i);
+		}
 	}
  
-	int comp_cnt = 0;
-	vector<int> kingdom(n, -1);
-	function<void(int)> dfs_transpose = [&](int u) {
-		kingdom[u] = comp_cnt;
+	int num_components = 0;
+	std::vector<int> kingdom(n, -1);
+	std::function<void(int)> dfs_transpose = [&](int u) {
+		kingdom[u] = num_components;
 		for (int v : transpose_adj[u]) {
-			if (kingdom[v] == -1) dfs_transpose(v);
+			if (kingdom[v] == -1) {
+				dfs_transpose(v);
+			}
 		}
 	};
 	while (!order.empty()) {
-		int u = order.back(); order.pop_back();
+		int u = order.back();
+		order.pop_back();
 		if (kingdom[u] == -1) {
-			comp_cnt++;
+			num_components++;
 			dfs_transpose(u);
 		}
 	}
 	
-	cout << comp_cnt << endl;
+	std::cout << num_components << '\n';
 	for (int i = 0; i < n; ++i) {
-		cout << kingdom[i] << " ";
+		std::cout << kingdom[i] << " ";
 	}
-	cout << endl;
 	
 	return 0;
 }
