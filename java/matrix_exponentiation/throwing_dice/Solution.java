@@ -77,7 +77,7 @@ class SquareMatrix {
   }
  
   public static long diceThrows(long n) {
-    SquareMatrix matrix = new SquareMatrix(new long[][]{
+    SquareMatrix diceMatrix = new SquareMatrix(new long[][]{
         new long[]{1, 1, 1, 1, 1, 1}, 
         new long[]{1, 0, 0, 0, 0, 0},
         new long[]{0, 1, 0, 0, 0, 0}, 
@@ -85,6 +85,6 @@ class SquareMatrix {
         new long[]{0, 0, 0, 1, 0, 0}, 
         new long[]{0, 0, 0, 0, 1, 0}
     });
-    return matrix.power(n + 1).a[0][5];
+    return diceMatrix.power(n).a[0][0];
   }
 }
