@@ -4,8 +4,8 @@ import Data.Char ( isSpace )
 import Control.Monad ( ap, replicateM )
 import qualified Data.ByteString.Char8 as BS
  
-solve :: [Int] -> String 
-solve xs
+gameWinner :: [Int] -> String 
+gameWinner xs
   | foldr1 xorMod4 xs > 0 = "first"
   | otherwise             = "second"
   where
@@ -14,7 +14,7 @@ solve xs
 main :: IO ()
 main = do
   inputLists <- evalState parseInput <$> BS.getContents
-  mapM_ (putStrLn . solve) inputLists
+  mapM_ (putStrLn . gameWinner) inputLists
   
 -- FAST INPUT PARSING:
  
