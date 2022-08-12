@@ -2,14 +2,16 @@ main :: IO ()
 main = do
   _ <- getLine
   input <- getLine
-  print . solve . map read . words $ input
- 
-solve :: [Integer] -> Integer
-solve
-  = solveTR 0 0
+  print . minStepsRequired . map read . words $ input
+
+minStepsRequired :: [Int] -> Int
+minStepsRequired
+  = minStepsRequiredTR 0 0
   where
-    solveTR :: Integer -> Integer -> [Integer] -> Integer
-    solveTR curMax moves (x : xs)
-      = let newMax = max curMax x in solveTR newMax (moves + newMax - x) xs 
-    solveTR _ moves _
+    minStepsRequiredTR :: Int -> Int -> [Int] -> Int
+    minStepsRequiredTR _ moves []
       = moves
+    minStepsRequiredTR curMax moves (x : xs)
+      = minStepsRequiredTR newMax (moves + newMax - x) xs 
+      where
+        newMax = max curMax x

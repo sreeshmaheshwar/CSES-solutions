@@ -5,9 +5,12 @@ import qualified Data.ByteString.Char8 as BS
 
 getKthRemoved :: Int -> Int -> Int
 getKthRemoved n k 
-  = solve (k * 2)
+  = getKthRemoved' (k * 2)
   where
-    solve x = if x > n then solve ((x - n) * 2 - 1) else x
+    getKthRemoved' :: Int -> Int
+    getKthRemoved' x 
+      | x > n     = getKthRemoved' ((x - n) * 2 - 1)
+      | otherwise = x
 
 main :: IO ()
 main = do
