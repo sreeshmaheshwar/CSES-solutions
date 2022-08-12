@@ -2,9 +2,10 @@ import Data.Maybe ( fromJust )
 import Data.Char ( isSpace )
 import Control.Monad ( ap, replicateM )
 import qualified Data.ByteString.Char8 as BS
+
 modulo :: Int
 modulo = 1000000007
- 
+
 modPow :: Int -> Int -> Int -> Int
 modPow _ 0 _
   = 1
