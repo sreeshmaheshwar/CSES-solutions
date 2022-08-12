@@ -10,7 +10,8 @@ int main() {
 	std::ios::sync_with_stdio(0);
 	std::cin.tie(0);
  
-	int n; std::cin >> n; 
+	int n; 
+	std::cin >> n; 
 	std::vector<project> a(n);
 	for (int i = 0; i < n; ++i) std::cin >> a[i].start >> a[i].end >> a[i].reward;
 
@@ -18,11 +19,12 @@ int main() {
 		return lhs.end < rhs.end;
 	});
 
-	std::vector<long long> dp(n), max_reward_before(n), endpoints;
+	std::vector<long long> max_reward_before(n);
+	std::vector<int> endpoints;
 	for (int i = 0; i < n; ++i) {
 		int j = (int) (std::lower_bound(endpoints.begin(), endpoints.end(), a[i].start) - endpoints.begin());
-		dp[i] = a[i].reward + (j == 0 ? 0 : max_reward_before[j - 1]);
-		max_reward_before[i] = std::max(dp[i], (i == 0 ? 0 : max_reward_before[i- 1]));
+		long long cur_reward = a[i].reward + (j == 0 ? 0 : max_reward_before[j - 1]);
+		max_reward_before[i] = std::max(cur_reward, (i == 0 ? 0 : max_reward_before[i - 1]));
 		endpoints.push_back(a[i].end);
 	}
 	std::cout << max_reward_before.back() << '\n';
