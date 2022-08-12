@@ -42,7 +42,6 @@ int main(){
 	std::vector<int> a(n);
 	for (int i = 0; i < n; ++i) {
 		std::cin >> a[i];
-	}
 	std::vector<query> queries;
 	for (int i = 0; i < q; ++i) {
 		int l, r; 

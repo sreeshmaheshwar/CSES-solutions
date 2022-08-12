@@ -5,13 +5,13 @@
 long long count_subarrays_equal_to_x(std::vector<int>& a, int x) {
 	std::map<long long, int> pref_sum_cnt;
 	pref_sum_cnt[0] = 1;
-	long long pref_sum = 0, ret = 0;
+	long long pref_sum = 0, answer = 0;
 	for (int &element : a) {
 		pref_sum += element;
-		ret += pref_sum_cnt[pref_sum - x];
+		answer += pref_sum_cnt[pref_sum - x];
 		pref_sum_cnt[pref_sum]++;
 	}
-	return ret;
+	return answer;
 }
  
 int main() {

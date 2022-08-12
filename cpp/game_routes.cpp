@@ -28,7 +28,7 @@ int main() {
 		}
 	};
 	dfs(0);
-	std::cout << routes[0] << std::endl;
+	std::cout << routes[0] << '\n';
 
 	return 0;
 }

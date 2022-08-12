@@ -1,6 +1,6 @@
-#include <vector>
 #include <algorithm>
 #include <iostream>
+#include <vector>
 #include <utility>
 
 int main() {
@@ -9,17 +9,17 @@ int main() {
  
 	int n; 
 	std::cin >> n;
-	std::vector<std::pair<int, int>> a(n);
+	std::vector<std::pair<int, int>> tasks(n);
 	for (int i = 0; i < n; ++i) {
-		std::cin >> a[i].first >> a[i].second;
+		std::cin >> tasks[i].first >> tasks[i].second;
 	}
-	std::sort(a.begin(), a.end());
+	std::sort(tasks.begin(), tasks.end());
 	long long cur = 0, ans = 0;
 	for (int i = 0; i < n; ++i) {
-		cur += a[i].first;
-		ans += a[i].second - cur;
+		cur += tasks[i].first;
+		ans += tasks[i].second - cur;
 	}
-	std::cout << ans << std::endl;
+	std::cout << ans << '\n';
  
 	return 0;
 }

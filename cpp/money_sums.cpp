@@ -16,9 +16,7 @@ int main() {
 		sums |= (sums << element);
 	}
 	std::cout << sums.count() - 1 << '\n';
-	for (int i = 1; i <= MAX_SUM; ++i)
-		if (sums[i])
-			std::cout << i << " ";
+	for (int i = 1; i <= MAX_SUM; ++i) if (sums[i]) std::cout << i << " ";
  
 	return 0;
 }

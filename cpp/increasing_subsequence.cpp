@@ -5,10 +5,10 @@ int main() {
 	std::ios::sync_with_stdio(0);
 	std::cin.tie(0);
  
-	int n; std::cin >> n;
+	int n; 
+	std::cin >> n;
 	std::vector<int> a(n);
 	for (int i = 0; i < n; ++i) std::cin >> a[i];
-
 	std::vector<int> subseq;
 	for (int i = 0; i < n; ++i) {
 		auto it = std::lower_bound(subseq.begin(), subseq.end(), a[i]);
