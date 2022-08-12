@@ -13,7 +13,8 @@ int main() {
 	for (int i = 0; i < m; ++i) {
 		int a, b;
 		std::cin >> a >> b;
-		adj[a - 1].push_back(b - 1);
+		a--, b--;
+		adj[a].push_back(b);
 	}
 	std::vector<int> routes(n, -1);
 	std::function<void(int)> dfs = [&](int u) {

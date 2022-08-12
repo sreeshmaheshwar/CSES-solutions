@@ -12,7 +12,7 @@ int main() {
 	for (int i = 0; i < m; ++i) {
 		int u, v; 
 		std::cin >> u >> v;
-		--u, --v;
+		u--, v--;
 		adj[u].push_back(v);
 		transpose_adj[v].push_back(u);
 	}
