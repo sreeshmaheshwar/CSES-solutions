@@ -5,12 +5,10 @@ namespace mod_operations {
 
 	const int MOD = 1e9 + 7;
 	
-	// modular multiplication
 	int multiply(int a, int b) {
 		return ((long long) a * b) % MOD;
 	}
 
-	// binary modular exponentiation
 	int pow(int a, int b) {
 		int ret = 1;
 		while (b) {
@@ -21,16 +19,15 @@ namespace mod_operations {
 		return ret;
 	}
 
-	// returns the multiplicative modular inverse of a
 	int inverse(int a) { 
 		return pow(a, MOD - 2); 
 	}
-};
+}
 
 const int MAX_FACTORIAL = 1e6;
-int factorial[MAX_FACTORIAL + 1], inverse_factorial[MAX_FACTORIAL + 1];
+int factorial[MAX_FACTORIAL + 1];
+int inverse_factorial[MAX_FACTORIAL + 1];
 
-// precomputes all required factorials and their modular inverses
 void precompute_factorials() {
 	factorial[0] = inverse_factorial[0] =  1;
 	for (int i = 1; i <= MAX_FACTORIAL; ++i) {
