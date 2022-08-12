@@ -7,7 +7,7 @@ struct union_find {
 
   private:
 
-	int cnt, mx_size = 1;
+	int cnt;
 	std::vector<int> sizes, link;
  
   public:
@@ -17,8 +17,6 @@ struct union_find {
 	union_find(int n) : cnt(n), sizes(n, 1), link(n, 0) { std::iota(link.begin(), link.end(), 0); }
  
 	int find(int x) { return ( x == link[x] ? x : link[x] = find(link[x])); }
- 
-	bool same(int x, int y) { return find(x) == find(y); }
  
 	bool unite(int x, int y) {
 		x = find(x); 
@@ -30,9 +28,7 @@ struct union_find {
 		cnt--;
 		return true;
 	}
- 
-	int size(int x) { return sizes[find(x)]; }
- 
+
 	int count() const { return cnt; }	
 };
 

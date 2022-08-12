@@ -17,8 +17,6 @@ struct union_find {
  
 	int find(int x) { return ( x == link[x] ? x : link[x] = find(link[x])); }
  
-	bool same(int x, int y) { return find(x) == find(y); }
- 
 	bool unite(int x, int y) {
 		x = find(x); 
 		y = find(y);
@@ -31,11 +29,9 @@ struct union_find {
 		return true;
 	}
  
-	int size(int x) { return sizes[find(x)]; }
- 
 	int count() const { return cnt; }
 
-	int max_size() { return mx_size; }
+	int max_size() const { return mx_size; }
 };
 
 int main() {
