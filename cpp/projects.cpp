@@ -1,12 +1,12 @@
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
 struct project {
-	
+
 	int start, finish, reward;
 
-	bool operator<(const project& other) {
+	bool operator<(const project &other) const {
 		return finish < other.finish;
 	}
 };
