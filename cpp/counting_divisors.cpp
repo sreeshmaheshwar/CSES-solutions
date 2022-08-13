@@ -7,7 +7,7 @@ int main() {
 	std::ios::sync_with_stdio(0);
 	std::cin.tie(0);
  	
- 	// modified sieve of eratosthenes to compute lowest prime factors
+ 	// modified sieve of eratosthenes that computes lowest prime factors
 	for (int i = 2; i * i <= MX_NUM; ++i) {
 		if (lowest_prime_factor[i]) continue;
 		lowest_prime_factor[i] = i;

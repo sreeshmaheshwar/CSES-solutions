@@ -4,7 +4,7 @@
 #include <algorithm>
 
 struct fenwick_tree {
- 
+
     std::vector<long long> data;
     int n;
  
@@ -28,8 +28,9 @@ struct fenwick_tree {
             data[index] += delta;
     }
 };
- 
+
 struct query {
+
 	int l, r, index; 
 };
  
@@ -40,8 +41,7 @@ int main(){
 	int n, q; 
 	std::cin >> n >> q; 
 	std::vector<int> a(n);
-	for (int i = 0; i < n; ++i) {
-		std::cin >> a[i];
+	for (int i = 0; i < n; ++i) std::cin >> a[i];
 	std::vector<query> queries;
 	for (int i = 0; i < q; ++i) {
 		int l, r; 
@@ -57,7 +57,6 @@ int main(){
 	fenwick_tree ft(n);
 	std::map<int, int> last_occurance;
 	std::vector<int> answer(q);
- 
 	for (int i = 0, j = 0; i < n && j < q; ++i) {
 		if (last_occurance.count(a[i])) {
 			ft.update_by(last_occurance[a[i]], -1);

@@ -33,6 +33,7 @@ struct union_find {
 };
 
 struct Edge {
+	
 	int u, v, weight;
 };
  
