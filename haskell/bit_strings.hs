@@ -12,5 +12,4 @@ twoPow
       = twoPow' (curAns * 2 `mod` modulo) (n - 1)
 
 main :: IO ()
-main 
-  = getLine >>= print . twoPow . read
+main = getLine >>= print . twoPow . read

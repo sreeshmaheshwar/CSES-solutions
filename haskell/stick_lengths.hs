@@ -8,7 +8,7 @@ getMinCost :: (Int, [Int]) -> Int
 getMinCost (n, xs)
   = sum [abs (median - x) | x <- xs]
   where
-    median = take (medianPos + 1) (sort xs) !! medianPos
+    median    = take (medianPos + 1) (sort xs) !! medianPos
     medianPos = n `div` 2
  
 main :: IO ()
