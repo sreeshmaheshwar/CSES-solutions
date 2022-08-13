@@ -38,9 +38,7 @@ void precompute_factorials() {
 
 int binomial_coefficient(int a, int b) {
 	assert(0 <= a && a <= MAX_FACTORIAL && 0 <= b && b <= MAX_FACTORIAL);
-	return mod_operations::multiply(
-		mod_operations::multiply(factorial[a], inverse_factorial[b]), 
-		inverse_factorial[a - b]);
+	return mod_operations::multiply(mod_operations::multiply(factorial[a], inverse_factorial[b]), inverse_factorial[a - b]);
 }
 
 int main() {
