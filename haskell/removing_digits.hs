@@ -7,6 +7,5 @@ minStepsRequired n
   = 1 + minStepsRequired (n - (digitToInt . maximum . show $ n))
 
 main :: IO ()
-main = do
-  input <- getLine 
-  let n = read input :: Int in print . minStepsRequired $ n
+main 
+  = getLine >>= print . minStepsRequired . read

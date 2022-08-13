@@ -1,8 +1,3 @@
-main :: IO ()
-main = do
-  s <- getLine
-  print . longestRepetition $ s
-
 longestRepetition :: [Char] -> Int
 longestRepetition 
   = longestRepetitionTR 0 0 '?'
@@ -14,3 +9,7 @@ longestRepetition
       = longestRepetitionTR newCnt (max curAns newCnt) c cs
       where
         newCnt = if c == prevC then curCnt + 1 else 1
+
+main :: IO ()
+main 
+  = getLine >>= print . longestRepetition

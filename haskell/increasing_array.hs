@@ -1,9 +1,3 @@
-main :: IO ()
-main = do
-  _ <- getLine
-  input <- getLine
-  print . minStepsRequired . map read . words $ input
-
 minStepsRequired :: [Int] -> Int
 minStepsRequired
   = minStepsRequiredTR 0 0
@@ -15,3 +9,8 @@ minStepsRequired
       = minStepsRequiredTR newMax (moves + newMax - x) xs 
       where
         newMax = max curMax x
+
+main :: IO ()
+main = do
+  _ <- getLine
+  getLine >>= print . minStepsRequired . map read . words

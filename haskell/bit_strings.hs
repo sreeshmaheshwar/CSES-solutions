@@ -10,8 +10,7 @@ twoPow
       = curAns
     twoPow' curAns n 
       = twoPow' (curAns * 2 `mod` modulo) (n - 1)
- 
+
 main :: IO ()
-main = do
-  input <- getLine
-  print . twoPow . read $ input
+main 
+  = getLine >>= print . twoPow . read
