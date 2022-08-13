@@ -10,16 +10,14 @@ int main() {
 	int n; 
 	std::cin >> n;
 	std::vector<std::pair<int, int>> tasks(n);
-	for (int i = 0; i < n; ++i) {
-		std::cin >> tasks[i].first >> tasks[i].second;
-	}
+	for (auto &[duration, deadline] : tasks) std::cin >> duration >> deadline;
 	std::sort(tasks.begin(), tasks.end());
-	long long cur = 0, ans = 0;
-	for (int i = 0; i < n; ++i) {
-		cur += tasks[i].first;
-		ans += tasks[i].second - cur;
+	long long time = 0, answer = 0;
+	for (auto &[duration, deadline] : tasks) {
+		time += duration;
+		answer += deadline - time;
 	}
-	std::cout << ans << '\n';
+	std::cout << answer << '\n';
  
 	return 0;
 }
