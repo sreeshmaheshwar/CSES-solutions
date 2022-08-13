@@ -7,7 +7,8 @@ modulo :: Int
 modulo = 1000000007
  
 modPow :: Int -> Int -> Int
-modPow _ 0 = 1
+modPow _ 0 
+  = 1
 modPow a b
   | odd b     = (evenAnswer * a) `mod` modulo
   | otherwise = evenAnswer
