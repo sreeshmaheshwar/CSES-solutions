@@ -3,31 +3,31 @@
 #include <algorithm>
 
 struct project {
-	int start, end, reward;
+	
+	int start, finish, reward;
+
+	bool operator<(const project& other) {
+		return finish < other.finish;
+	}
 };
- 
+
 int main() {
 	std::ios::sync_with_stdio(0);
 	std::cin.tie(0);
- 
+
 	int n; 
 	std::cin >> n; 
 	std::vector<project> a(n);
-	for (int i = 0; i < n; ++i) std::cin >> a[i].start >> a[i].end >> a[i].reward;
-
-	std::sort(a.begin(), a.end(), [](const project& lhs, const project& rhs) {
-		return lhs.end < rhs.end;
-	});
-
-	std::vector<long long> max_reward_before(n);
-	std::vector<int> endpoints;
 	for (int i = 0; i < n; ++i) {
-		int j = (int) (std::lower_bound(endpoints.begin(), endpoints.end(), a[i].start) - endpoints.begin());
-		long long cur_reward = a[i].reward + (j == 0 ? 0 : max_reward_before[j - 1]);
-		max_reward_before[i] = std::max(cur_reward, (i == 0 ? 0 : max_reward_before[i - 1]));
-		endpoints.push_back(a[i].end);
+		std::cin >> a[i].start >> a[i].finish >> a[i].reward;
 	}
-	std::cout << max_reward_before.back() << '\n';
- 
+	std::sort(a.begin(), a.end());
+	std::vector<long long> max_reward(n + 1); // maximum money you can earn with the the first i projects 
+	for (int i = 0; i < n; ++i) {
+		int j = (int) (std::lower_bound(a.begin(), a.end(), project{0, a[i].start, 0}) - a.begin());
+		max_reward[i + 1] = std::max(a[i].reward + max_reward[j], max_reward[i]);
+	}
+	std::cout << max_reward[n] << '\n';
+
 	return 0;
 }
