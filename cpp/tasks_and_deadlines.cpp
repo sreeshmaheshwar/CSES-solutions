@@ -12,10 +12,10 @@ int main() {
 	std::vector<std::pair<int, int>> tasks(n);
 	for (auto &[duration, deadline] : tasks) std::cin >> duration >> deadline;
 	std::sort(tasks.begin(), tasks.end());
-	long long time = 0, answer = 0;
+	long long cur_time = 0, answer = 0;
 	for (auto &[duration, deadline] : tasks) {
-		time += duration;
-		answer += deadline - time;
+		cur_time += duration;
+		answer += deadline - cur_time;
 	}
 	std::cout << answer << '\n';
  
