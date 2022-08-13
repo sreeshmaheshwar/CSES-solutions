@@ -24,7 +24,7 @@ instance Functor (State s) where
   fmap f m = State $ \s -> let (a, s') = runState m s in (f a, s')
  
 instance Applicative (State s) where
-  pure = return
+  pure  = return
   (<*>) = ap
  
 instance Monad (State s) where
