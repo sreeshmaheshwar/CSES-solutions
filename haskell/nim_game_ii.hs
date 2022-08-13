@@ -12,11 +12,12 @@ gameWinner xs
     xorMod4 a b = (a `xor` b) `mod` 4  
  
 main :: IO ()
-main = do
-  inputLists <- evalState parseInput <$> BS.getContents
-  mapM_ (putStrLn . gameWinner) inputLists
-  
+main = readInput >>= mapM_ (putStrLn . gameWinner)
+
 -- FAST INPUT PARSING:
+
+readInput :: IO [[Int]]
+readInput = evalState parseInput <$> BS.getContents
  
 parseInput :: State BS.ByteString [[Int]]
 parseInput = do

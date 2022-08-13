@@ -12,11 +12,12 @@ gameWinner xs
     odds = [x | (x, i) <- zip xs [0..], odd i]
 
 main :: IO ()
-main = do
-  inputLists <- evalState parseInput <$> BS.getContents
-  mapM_ (putStrLn . gameWinner) inputLists
+main = readInput >>= mapM_ (putStrLn . gameWinner)
 
 -- FAST INPUT PARSING:
+
+readInput :: IO [[Int]]
+readInput = evalState parseInput <$> BS.getContents
 
 parseInput :: State BS.ByteString [[Int]]
 parseInput = do

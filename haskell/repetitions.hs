@@ -11,5 +11,4 @@ longestRepetition
         newCnt = if c == prevC then curCnt + 1 else 1
 
 main :: IO ()
-main 
-  = getLine >>= print . longestRepetition
+main = getLine >>= print . longestRepetition

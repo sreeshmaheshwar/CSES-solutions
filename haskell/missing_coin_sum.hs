@@ -3,7 +3,7 @@ import Data.Maybe ( fromJust )
 import Data.Char ( isSpace )
 import Control.Monad ( ap, replicateM )
 import qualified Data.ByteString.Char8 as BS
- 
+
 smallestSum :: [Int] -> Int
 smallestSum
   = smallestSum' 1 . sort 
@@ -15,13 +15,13 @@ smallestSum
       | x > curSmallestSum = curSmallestSum
       | otherwise          = smallestSum' (curSmallestSum + x) xs
       
- 
 main :: IO ()
-main = do
-  inputList <- evalState parseInput <$> BS.getContents
-  print . smallestSum $ inputList
+main = readInput >>= print . smallestSum
   
 -- FAST INPUT PARSING:
+
+readInput :: IO [Int]
+readInput = evalState parseInput <$> BS.getContents
  
 parseInput :: State BS.ByteString [Int]
 parseInput = do

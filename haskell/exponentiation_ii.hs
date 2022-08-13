@@ -7,7 +7,7 @@ modulo :: Int
 modulo = 1000000007
 
 modPow :: Int -> Int -> Int -> Int
-modPow _ 0 _
+modPow _ 0 _ 
   = 1
 modPow a b m
   | odd b     = (evenAnswer * a) `mod` m
@@ -15,17 +15,18 @@ modPow a b m
   where
     evenAnswer = (halfPow * halfPow) `mod` m
     halfPow    = modPow a (b `div` 2) m
- 
+
 solve :: (Int, Int, Int) -> Int
 solve (a, b, c) 
   = modPow a (modPow b c (modulo - 1)) modulo
  
 main :: IO ()
-main = do
-  inputs <- evalState parseInput <$> BS.getContents
-  mapM_ (print . solve) inputs 
+main = readInput >>= mapM_ (print . solve) 
  
 -- FAST INPUT PARSING:
+
+readInput :: IO [(Int, Int, Int)]
+readInput = evalState parseInput <$> BS.getContents
  
 parseInput :: State BS.ByteString [(Int, Int, Int)]
 parseInput = do

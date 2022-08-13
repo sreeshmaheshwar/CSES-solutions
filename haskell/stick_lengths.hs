@@ -12,11 +12,12 @@ getMinCost (n, xs)
     medianPos = n `div` 2
  
 main :: IO ()
-main = do
-  inputs <- evalState parseInput <$> BS.getContents
-  print . getMinCost $ inputs
+main = readInput >>= print . getMinCost
  
 -- FAST INPUT PARSING:
+
+readInput :: IO (Int, [Int])
+readInput = evalState parseInput <$> BS.getContents
  
 parseInput :: State BS.ByteString (Int, [Int])
 parseInput = do

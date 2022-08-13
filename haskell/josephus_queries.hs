@@ -13,11 +13,12 @@ getKthRemoved n k
       | otherwise = x
 
 main :: IO ()
-main = do
-  inputs <- evalState parseInput <$> BS.getContents
-  mapM_ (print . uncurry getKthRemoved) inputs
+main = readInput >>= mapM_ (print . uncurry getKthRemoved)
 
 -- FAST INPUT PARSING:
+
+readInput :: IO [(Int, Int)]
+readInput = evalState parseInput <$> BS.getContents
 
 parseInput :: State BS.ByteString [(Int, Int)]
 parseInput = do

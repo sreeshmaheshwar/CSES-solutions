@@ -15,13 +15,14 @@ maxReward
       = maxRewardTR newTime (curAns + deadline - newTime) tasks
       where 
         newTime = curTime + duration
- 
+
 main :: IO ()
-main = do
-  tasks <- evalState parseInput <$> BS.getContents
-  print . maxReward $ tasks
+main = readInput >>= print . maxReward
  
 -- FAST INPUT PARSING:
+
+readInput :: IO [(Int, Int)]
+readInput = evalState parseInput <$> BS.getContents
  
 parseInput :: State BS.ByteString [(Int, Int)]
 parseInput = do

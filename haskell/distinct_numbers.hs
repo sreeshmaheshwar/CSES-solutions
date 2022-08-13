@@ -5,11 +5,12 @@ import Control.Monad ( ap, replicateM )
 import qualified Data.ByteString.Char8 as BS
  
 main :: IO ()
-main = do
-  inputList <- evalState parseInput <$> BS.getContents
-  print . length . group . sort $ inputList
+main = readInput >>= print . length . group . sort
   
 -- FAST INPUT PARSING:
+
+readInput :: IO [Int]
+readInput = evalState parseInput <$> BS.getContents
  
 parseInput :: State BS.ByteString [Int]
 parseInput = do
