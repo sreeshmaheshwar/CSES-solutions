@@ -1,5 +1,4 @@
 #include <iostream>
-#include <map>
 const int MAX_X = 1e6;
 int divisor_count[MAX_X + 1];
 
