@@ -46,11 +46,9 @@ int main() {
 		std::cin >> edge.u >> edge.v >> edge.weight;
 		edge.u--, edge.v--;
 	}
- 
 	std::sort(edges.begin(), edges.end(), [](const Edge& lhs, const Edge& rhs) {
 		return lhs.weight < rhs.weight;
 	});
- 
 	long long ans = 0;
 	union_find UF(n);
 	for (Edge e : edges) {
