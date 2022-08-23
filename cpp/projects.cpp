@@ -24,7 +24,7 @@ int main() {
 	std::sort(a.begin(), a.end());
 	std::vector<long long> max_reward(n + 1); // maximum money you can earn with the the first i projects 
 	for (int i = 0; i < n; ++i) {
-		int j = (int) (std::lower_bound(a.begin(), a.end(), project{0, a[i].start, 0}) - a.begin());
+		int j = std::lower_bound(a.begin(), a.end(), project{0, a[i].start, 0}) - a.begin();
 		max_reward[i + 1] = std::max(a[i].reward + max_reward[j], max_reward[i]);
 	}
 	std::cout << max_reward[n] << '\n';

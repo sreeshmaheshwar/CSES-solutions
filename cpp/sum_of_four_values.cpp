@@ -28,6 +28,5 @@ int main() {
 		}
 	}
 	std::cout << "IMPOSSIBLE";
- 
 	return 0;
 }
