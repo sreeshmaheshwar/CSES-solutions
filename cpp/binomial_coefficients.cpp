@@ -2,7 +2,6 @@
 #include <iostream>
 
 namespace mod_operations {
-
     const int MOD = 1e9 + 7;
     
     int multiply(int a, int b) {
