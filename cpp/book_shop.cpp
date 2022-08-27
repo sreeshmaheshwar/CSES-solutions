@@ -2,9 +2,6 @@
 #include <vector>
 
 int main() {
-	std::ios::sync_with_stdio(0);
-	std::cin.tie(0);
- 
 	int n, x;
 	std::cin >> n >> x;
 
@@ -20,6 +17,5 @@ int main() {
 			dp[j] = std::max(dp[j], dp[j - h[i]] + s[i]);
 
 	std::cout << dp[x] << '\n';
- 
 	return 0;
 }

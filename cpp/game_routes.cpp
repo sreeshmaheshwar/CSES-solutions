@@ -4,9 +4,6 @@
 const int MOD = 1e9 + 7;
 
 int main() {
-	std::ios::sync_with_stdio(0);
-	std::cin.tie(0);
-
 	int n, m;
 	std::cin >> n >> m;
 	std::vector<std::vector<int>> adj(n);
@@ -30,6 +27,5 @@ int main() {
 	};
 	dfs(0);
 	std::cout << routes[0] << '\n';
-
 	return 0;
 }

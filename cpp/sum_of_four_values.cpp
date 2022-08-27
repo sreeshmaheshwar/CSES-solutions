@@ -4,9 +4,6 @@
 #include <utility>
 
 int main() {
-	std::ios::sync_with_stdio(0);
-	std::cin.tie(0);
- 
 	int n, x;
 	std::cin >> n >> x;
 	std::vector<int> a(n);
@@ -19,7 +16,7 @@ int main() {
 			int target_sum = x - a[i] - a[j];
 			if (sum_pos.count(target_sum)) {
 				auto pos = sum_pos[target_sum];
-				std::cout << i + 1 << " " << j + 1 << " " << pos.first + 1 << " " << pos.second + 1;
+				std::cout << i+1 << " " << j+1 << " " << pos.first+1 << " " << pos.second+1;
 				return 0;
 			}
 		}

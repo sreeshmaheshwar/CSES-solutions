@@ -2,9 +2,6 @@
 #include <vector>
 
 int main() {
-	std::ios::sync_with_stdio(0);
-	std::cin.tie(0);
- 
 	int n; 
 	std::cin >> n;
 	std::vector<int> a(n);
@@ -19,6 +16,5 @@ int main() {
 		}
 	}
 	std::cout << subseq.size() << '\n';
- 
 	return 0;
 }

@@ -3,9 +3,6 @@
 #include <vector>
 
 int main() {
-	std::ios::sync_with_stdio(0);
-	std::cin.tie(0);
- 
 	int n, x;
 	std::cin >> n >> x;
 	std::map<long long, int> pref_sum_cnt;
@@ -19,6 +16,5 @@ int main() {
 		pref_sum_cnt[cur_pref_sum]++;
 	}
 	std::cout << answer << '\n';
- 
 	return 0;
 }

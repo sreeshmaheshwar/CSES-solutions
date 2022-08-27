@@ -4,9 +4,6 @@
 const long long INF = 1e18;
 
 int main() {
-	std::ios::sync_with_stdio(0);
-	std::cin.tie(0);
-	
 	int n, m, q;
 	std::cin >> n >> m >> q;
 	std::vector<std::vector<int>> adj_matrix(n, std::vector<int>(n));
@@ -46,6 +43,5 @@ int main() {
 		a--, b--;
 		std::cout << (dist[a][b] == INF ? -1 : dist[a][b]) << '\n';
 	}
-
 	return 0;
 }

@@ -5,9 +5,6 @@
 const long long INF = 1e18;
 
 int main() {
-    std::ios::sync_with_stdio(0);
-    std::cin.tie(0);
-
     int n, m;
     std::cin >> n >> m;
     std::vector<std::vector<std::pair<int, int>>> adj(n);

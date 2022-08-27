@@ -3,7 +3,6 @@
 #include <vector>
 
 struct project {
-
 	int start, finish, reward;
 
 	bool operator<(const project &other) const {
@@ -12,9 +11,6 @@ struct project {
 };
 
 int main() {
-	std::ios::sync_with_stdio(0);
-	std::cin.tie(0);
-
 	int n; 
 	std::cin >> n; 
 	std::vector<project> a(n);
@@ -28,6 +24,5 @@ int main() {
 		max_reward[i + 1] = std::max(a[i].reward + max_reward[j], max_reward[i]);
 	}
 	std::cout << max_reward[n] << '\n';
-
 	return 0;
 }

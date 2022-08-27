@@ -3,9 +3,6 @@
 #include <functional>
  
 int main() {
-	std::ios::sync_with_stdio(0); 
-	std::cin.tie(0);
-
 	int n, m; 
 	std::cin >> n >> m;
 	std::vector<std::vector<int>> adj(n), transpose_adj(n);
@@ -16,7 +13,6 @@ int main() {
 		adj[u].push_back(v);
 		transpose_adj[v].push_back(u);
 	}
- 
 	std::vector<bool> visited(n, false);
 	std::vector<int> order;
 	std::function<void(int)> dfs = [&](int u) {
@@ -33,7 +29,6 @@ int main() {
 			dfs(i);
 		}
 	}
- 
 	int num_components = 0;
 	std::vector<int> kingdom(n, -1);
 	std::function<void(int)> dfs_transpose = [&](int u) {
@@ -52,11 +47,9 @@ int main() {
 			dfs_transpose(u);
 		}
 	}
-	
 	std::cout << num_components << '\n';
 	for (int i = 0; i < n; ++i) {
 		std::cout << kingdom[i] << " ";
 	}
-	
 	return 0;
 }

@@ -1,47 +1,47 @@
-#include <vector>
-#include <map>
-#include <iostream>
 #include <algorithm>
+#include <iostream>
+#include <map>
+#include <vector>
 
-struct fenwick_tree {
-
-    std::vector<long long> data;
+template<typename T> struct fenwick_tree {
+    std::vector<T> data;
     int n;
  
-    fenwick_tree(int _n) : n(_n) {
-        data.assign(n, 0);
+    fenwick_tree(int _n, T initial) : n(_n) {
+        data.assign(n, initial);
     }
  
-    long long sum(int r) {
-        long long res = 0;
+    T prefix_sum(int r) {
+        T res = 0;
         for (; r >= 0; r = (r & (r + 1)) - 1)
             res += data[r];
         return res;
     }
  
-    long long query(int l, int r) { 
-        return sum(r) - sum(l - 1); 
+    T query(int l, int r) { 
+        return prefix_sum(r) - prefix_sum(l - 1); 
     }
  
-    void update_by(int index, long long delta) { 
+    void update(int index, long long delta) { 
         for (; index < n; index = index | (index + 1))
             data[index] += delta;
     }
 };
 
 struct query {
+	int l, r, index;
 
-	int l, r, index; 
+	bool operator<(const query &q) const {
+		return r < q.r;
+	}
 };
  
 int main(){
-	std::ios::sync_with_stdio(0);
-	std::cin.tie(0);
-	
 	int n, q; 
 	std::cin >> n >> q; 
 	std::vector<int> a(n);
-	for (int i = 0; i < n; ++i) std::cin >> a[i];
+	for (int i = 0; i < n; ++i)
+		std::cin >> a[i];
 	std::vector<query> queries;
 	for (int i = 0; i < q; ++i) {
 		int l, r; 
@@ -49,27 +49,23 @@ int main(){
 		l--, r--;
 		queries.push_back(query{l, r, i});
 	}
- 
-	std::sort(queries.begin(), queries.end(), [](const query& lhs, const query& rhs) {
-		return lhs.r < rhs.r;
-	});
- 
-	fenwick_tree ft(n);
+	std::sort(queries.begin(), queries.end());
+	fenwick_tree<int> ft(n, 0);
 	std::map<int, int> last_occurance;
 	std::vector<int> answer(q);
 	for (int i = 0, j = 0; i < n && j < q; ++i) {
 		if (last_occurance.count(a[i])) {
-			ft.update_by(last_occurance[a[i]], -1);
+			ft.update(last_occurance[a[i]], -1);
 		}
 		last_occurance[a[i]] = i; 
-		ft.update_by(i, 1);
+		ft.update(i, 1);
 		// answer all queries with this endpoint
 		while (j < q && queries[j].r == i) {
 			answer[queries[j].index] = ft.query(queries[j].l, queries[j].r);
 			j++;
 		}
 	}
-	for (int ans : answer) std::cout << ans << '\n';
- 
+	for (int ans : answer)
+		std::cout << ans << '\n';
 	return 0;
 }

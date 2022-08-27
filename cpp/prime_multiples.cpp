@@ -2,13 +2,9 @@
 #include <vector>
 
 int main() {
-    std::ios::sync_with_stdio(0);
-    std::cin.tie(0);
-
     long long n;
-    std::cin >> n;
     int k;
-    std::cin >> k;
+    std::cin >> n >> k;
     std::vector<long long> primes(k);
     for (long long &prime : primes) {
         std::cin >> prime;
@@ -36,7 +32,6 @@ int main() {
         }
     }
     std::cout << union_size << '\n';
-    
     return 0;
 }
 
