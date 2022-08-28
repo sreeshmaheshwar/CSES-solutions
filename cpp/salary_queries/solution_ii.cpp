@@ -25,21 +25,19 @@ template<typename T> struct fenwick_tree {
 };
 
 // coordinate compress all integer values in input to O(N + Q)
-namespace compressor {
-    struct custom_hash {
-        std::size_t operator()(const int &key) const {
-            static const uint64_t FIXED_RANDOM = std::chrono::steady_clock::now().time_since_epoch().count();
-            uint64_t x = FIXED_RANDOM ^ key;
-            return x ^ (x >> 16);
-        }
-    };
-    std::unordered_map<int, int, custom_hash> compress;
-    std::size_t compress_values(std::vector<int> values) {
-        std::sort(values.begin(), values.end());
-        values.erase(unique(values.begin(), values.end()), values.end());
-        for (int i = 0; i < (int) values.size(); ++i) compress[values[i]] = i;
-        return values.size();
+struct custom_hash {
+    std::size_t operator()(const int &key) const {
+        static const uint64_t FIXED_RANDOM = std::chrono::steady_clock::now().time_since_epoch().count();
+        uint64_t x = FIXED_RANDOM ^ key;
+        return x ^ (x >> 16);
     }
+};
+std::unordered_map<int, int, custom_hash> compress;
+std::size_t compress_values(std::vector<int> values) {
+    std::sort(values.begin(), values.end());
+    values.erase(std::unique(values.begin(), values.end()), values.end());
+    for (int i = 0; i < (int) values.size(); ++i) compress[values[i]] = i;
+    return values.size();
 }
 
 int main() {
@@ -63,18 +61,18 @@ int main() {
         values.push_back(b);
         to_process.emplace_back(a - !is_query[i], b);
     }
-    fenwick_tree<int> ft(compressor::compress_values(values));
+    fenwick_tree<int> ft(compress_values(values));
     for (int i = 0; i < n; ++i) {
-        p[i] = compressor::compress[p[i]];
+        p[i] = compress[p[i]];
         ft.update_by(p[i], +1);
     }
     for (int i = 0; i < q; ++i) {
         auto [a, b] = to_process[i];
         if (is_query[i]) {
-            std::cout << ft.query(compressor::compress[a], compressor::compress[b]) << '\n';
+            std::cout << ft.query(compress[a], compress[b]) << '\n';
         } else {
             ft.update_by(p[a], -1);
-            p[a] = compressor::compress[b];
+            p[a] = compress[b];
             ft.update_by(p[a], +1);
         }
     }
