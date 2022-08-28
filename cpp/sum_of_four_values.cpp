@@ -15,8 +15,8 @@ int main() {
 		for (int j = i + 1; j < n; ++j) {
 			int target_sum = x - a[i] - a[j];
 			if (sum_pos.count(target_sum)) {
-				auto pos = sum_pos[target_sum];
-				std::cout << i+1 << " " << j+1 << " " << pos.first+1 << " " << pos.second+1;
+				auto [k, l] = sum_pos[target_sum];
+				std::cout << i+1 << " " << j+1 << " " << k+1 << " " << l+1;
 				return 0;
 			}
 		}

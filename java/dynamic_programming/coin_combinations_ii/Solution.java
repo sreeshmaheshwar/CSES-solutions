@@ -2,7 +2,7 @@ import java.util.Scanner;
  
 public class Solution {
  
-  private static final int MOD = (int) (1e9 + 7);
+  private static final int MOD = (int) 1e9 + 7;
  
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);

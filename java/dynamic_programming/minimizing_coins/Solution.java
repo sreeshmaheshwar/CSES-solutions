@@ -3,7 +3,7 @@ import java.util.Scanner;
  
 public class Solution {
  
-  private final static int INF = (int) (1e6 + 1);
+  private final static int INF = (int) 1e6 + 1;
  
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
