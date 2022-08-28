@@ -2,9 +2,16 @@ modulo :: Int
 modulo 
   = 1000000007
 
+-- second fastest out of 4 solutions --
 twoPow :: Int -> Int
-twoPow 
-  = foldr ($) 1 . flip replicate ((`mod` modulo) . (* 2))
+twoPow
+  = twoPowTR 1
+  where 
+    twoPowTR :: Int -> Int -> Int
+    twoPowTR curAns 0
+      = curAns
+    twoPowTR curAns n 
+      = twoPowTR (curAns * 2 `mod` modulo) (n - 1)
 
 main :: IO ()
 main 
