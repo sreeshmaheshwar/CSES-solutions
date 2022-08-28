@@ -62,12 +62,19 @@ class MinimalSquareMatrix extends SquareMatrix {
 
 class SquareMatrix {
 
+  private final static int MOD = (int) 1e9 + 7;
   protected final int n;
   protected final long[][] a;
 
   public SquareMatrix(int n) {
     this.n = n;
     a = new long[n][n];
+  }
+
+  public SquareMatrix(long[][] a) {
+    this.a = a;
+    n = a.length;
+    assert(a[0].length == n);
   }
 
   boolean canBeSet(int row, int col, long value) {
@@ -106,7 +113,7 @@ class SquareMatrix {
     for (int i = 0; i < n; ++i) {
       for (int j = 0; j < n; ++j) {
         for (int k = 0; k < n; ++k) {
-          res.a[i][j] += a[i][k] * matrix.a[k][j];
+          res.a[i][j] = (((a[i][k] * matrix.a[k][j]) % MOD) + res.a[i][j]) % MOD;
         }
       }
     }

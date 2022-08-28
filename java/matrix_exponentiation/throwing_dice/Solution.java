@@ -1,4 +1,3 @@
-import java.lang.IllegalArgumentException;
 import java.util.Scanner;
  
 public class Solution {
@@ -10,70 +9,63 @@ public class Solution {
 }
 
 class SquareMatrix {
- 
-  private final static int MOD = (int) (1e9 + 7);
-  private final long[][] a;
-  private final int n;
- 
+
+  private final static int MOD = (int) 1e9 + 7;
+  protected final int n;
+  protected final long[][] a;
+
+  public SquareMatrix(int n) {
+    this.n = n;
+    a = new long[n][n];
+  }
+
   public SquareMatrix(long[][] a) {
     this.a = a;
     n = a.length;
     assert(a[0].length == n);
   }
- 
-  public SquareMatrix(int n) {
-    this.n = n;
-    a = new long[n][n];
+
+  boolean canBeSet(int row, int col, long value) {
+    return 0 <= row && row < n && 0 <= col && col < n;
   }
- 
-  public static SquareMatrix identity(int n) {
+
+  public void setCell(int row, int col, long value) {
+    if (canBeSet(row, col, value)) {
+      a[row][col] = value;
+    }
+  }
+
+  public SquareMatrix power(long exponent) {
+    SquareMatrix current = this;
+    SquareMatrix res = getIdentity(n);
+    while (exponent > 0) {
+      if ((exponent & 1) == 1) {
+        res = res.multiply(current);
+      }
+      current = current.multiply(current);
+      exponent >>= 1;
+    }
+    return res;
+  }
+
+  SquareMatrix getIdentity(int n) {
     SquareMatrix res = new SquareMatrix(n);
     for (int i = 0; i < n; ++i) {
       res.a[i][i] = 1;
     }
     return res;
   }
- 
-  // naive O(n^3) matrix multiplication
-  public static SquareMatrix multiply(SquareMatrix x, SquareMatrix y) {
-    if (x.n != y.n) {
-      throw new IllegalArgumentException("Square matrices must have same dimensions to be multiplied");
-    }
-    SquareMatrix res = new SquareMatrix(x.n);
-    for (int i = 0; i < x.n; ++i) {
-      for (int j = 0; j < x.n; ++j) {
-        for (int k = 0; k < x.n; ++k) {
-          res.a[i][j] = (((x.a[i][k] * y.a[k][j]) % MOD) + res.a[i][j]) % MOD;
+
+  SquareMatrix multiply(SquareMatrix matrix) {
+    SquareMatrix res = new SquareMatrix(n);
+    for (int i = 0; i < n; ++i) {
+      for (int j = 0; j < n; ++j) {
+        for (int k = 0; k < n; ++k) {
+          res.a[i][j] = (((a[i][k] * matrix.a[k][j]) % MOD) + res.a[i][j]) % MOD;
         }
       }
     }
     return res;
-  }
- 
-  // binary exponentiation adapted for a matrix base - works in O(n^3 * log(exponent))
-  public SquareMatrix power(long exponent) {
-    SquareMatrix current = this;
-    SquareMatrix res = identity(n);
-    while (exponent > 0) {
-      if ((exponent & 1) == 1) {
-        res = multiply(res, current);
-      }
-      current = multiply(current, current);
-      exponent >>= 1;
-    }
-    return res;
-  }
- 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder("Matrix:\n");
-    for (int i = 0; i < n; ++i) {
-      for (int j = 0; j < n; ++j) {
-        sb.append(a[i][j]).append(" ");
-      }
-      sb.append('\n');
-    }
-    return sb.toString();
   }
  
   public static long diceThrows(long n) {
