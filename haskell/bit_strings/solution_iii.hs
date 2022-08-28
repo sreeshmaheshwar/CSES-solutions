@@ -1,12 +1,14 @@
 modulo :: Int
-modulo 
+modulo
   = 1000000007
 
--- third fastest out of 4 solutions --
+-- third fastest out of 5 solutions --
 twoPow :: Int -> Int
-twoPow 
-  = foldr ($) 1 . flip replicate ((`mod` modulo) . (* 2))
+twoPow 0
+  = 1
+twoPow n
+  = 2 * twoPow (n - 1) `mod` modulo
 
 main :: IO ()
-main 
+main
   = getLine >>= print . twoPow . read

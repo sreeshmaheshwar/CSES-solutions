@@ -2,10 +2,10 @@ modulo :: Int
 modulo 
   = 1000000007
 
--- fourth fastest out of 4 solutions --
+-- slowest out of 4 solutions, but most elegant? --
 twoPow :: Int -> Int
-twoPow 
-  = foldr ($) 1 . flip replicate ((`mod` modulo) . (* 2))
+twoPow
+  = (!!) (iterate ((`mod` modulo) . (* 2)) 1)
 
 main :: IO ()
 main 
