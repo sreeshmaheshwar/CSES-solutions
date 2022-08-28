@@ -2,7 +2,7 @@ modulo :: Int
 modulo 
   = 1000000007
 
--- slowest out of 4 solutions, but most elegant? --
+-- slowest out of 5 solutions, but most elegant? --
 twoPow :: Int -> Int
 twoPow
   = (!!) (iterate ((`mod` modulo) . (* 2)) 1)

@@ -12,7 +12,7 @@ modPow a b
     evenAnswer = (halfPow * halfPow) `mod` modulo
     halfPow    = modPow a (b `div` 2)
 
--- fastest out of 4 solutions, works in O(log n) time! --
+-- fastest out of 5 solutions, works in O(log n) time! --
 twoPow :: Int -> Int
 twoPow 
   = modPow 2

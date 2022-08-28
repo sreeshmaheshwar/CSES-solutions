@@ -2,7 +2,7 @@ modulo :: Int
 modulo 
   = 1000000007
 
--- second fastest out of 4 solutions --
+-- second fastest out of 5 solutions --
 twoPow :: Int -> Int
 twoPow
   = twoPowTR 1
