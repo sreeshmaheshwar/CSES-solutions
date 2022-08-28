@@ -27,9 +27,10 @@ int main() {
         int a, b;
         std::cin >> type >> a >> b;
         if (type == '!') {
-            s.erase({p[--a], a});
+            a--;
+            s.erase({p[a], a});
             p[a] = b;
-            s.insert({b, a});
+            s.insert({p[a], a});
         } else {
             std::cout << s.order_of_key({b + 1, -1}) - s.order_of_key({a, -1}) << '\n';
         }
