@@ -10,7 +10,7 @@ addUnderMod x y = (x + y) `mod` modulo
 sumListUnderMod :: [Int] -> Int
 sumListUnderMod = foldr addUnderMod 0
 
--- applies memoization by carrying previous six results as a parameter --
+-- applies tail-recursive memoization by carrying previous six results as a parameter --
 diceCombinations :: Int -> Int
 diceCombinations
   = diceCombinationsMemTR [1]
@@ -19,9 +19,9 @@ diceCombinations
     diceCombinationsMemTR (x : _) 0
       = x
     diceCombinationsMemTR xs n
-      = diceCombinationsMemTR nxs (n - 1)
+      = diceCombinationsMemTR xs' (n - 1)
       where
-        nxs = sumListUnderMod xs : (if length xs == diceFaces then init else id) xs
+        xs' = sumListUnderMod xs : (if length xs == diceFaces then init else id) xs
 
 main :: IO ()
 main = getLine >>= print . diceCombinations . read

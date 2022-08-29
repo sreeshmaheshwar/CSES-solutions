@@ -12,12 +12,12 @@ public class Solution {
     return add(a - b, MOD);
   }
 
-  // O(N) algorithm, independent of number of dice faces!
+  // O(N) time algorithm, independent of number of dice faces!
   public static int diceCombinations(int n, int diceFaces) {
     int[] waysToSum = new int[n + 1];
     int waysToGetPreviousRoll = waysToSum[0] = 1;
     for (int i = 1; i <= n; ++i) {
-      waysToSum[i] = add(waysToSum[i], waysToGetPreviousRoll);
+      waysToSum[i] = waysToGetPreviousRoll;
       waysToGetPreviousRoll = add(waysToGetPreviousRoll, waysToSum[i]);
       if (i - diceFaces >= 0) {
         waysToGetPreviousRoll = subtract(waysToGetPreviousRoll, waysToSum[i - diceFaces]);
