@@ -1,78 +1,90 @@
 #include <algorithm>
-#include <chrono>
 #include <iostream>
-#include <unordered_map>
-#include <utility>
 #include <vector>
+#include <ext/pb_ds/assoc_container.hpp>
+
+template <typename T> struct compressor {
+  private:
+    __gnu_pbds::gp_hash_table<T, int> compress_table;
+    std::vector<T> values;
+  public:
+    compressor(std::vector<T> _values) : values(_values) {};
+    int compress() {
+        std::sort(values.begin(), values.end());
+        values.erase(std::unique(values.begin(), values.end()), values.end());
+        for (int i = 0; i < (int) values.size(); ++i) {
+            compress_table[values[i]] = i;
+        }
+        return values.size();
+    }
+    int get(T value) {
+        return compress_table[value];
+    };    
+};
 
 template<typename T> struct fenwick_tree {
+  private:
     std::vector<T> data;
     int n;
+  public:
     fenwick_tree(int _n) : n(_n) {
         data.assign(n, T(0));
     }
     T prefix_sum(int r) {
         T res = T(0);
-        for (; r >= 0; r = (r&(r+1))-1) res += data[r];
+        for (; r >= 0; r = (r & (r + 1)) - 1) {
+            res += data[r];
+        }
         return res;
     }
     T query(int l, int r) {
         return prefix_sum(r) - prefix_sum(l - 1);
     }
     void update_by(int i, T delta) {
-        for (; i < n; i = i|(i+1)) data[i] += delta; 
+        for (; i < n; i = i | (i + 1)) {
+            data[i] += delta; 
+        }
     }
 };
 
-// coordinate compress all integer values in input to O(N + Q)
-struct custom_hash {
-    std::size_t operator()(const int &key) const {
-        static const uint64_t FIXED_RANDOM = std::chrono::steady_clock::now().time_since_epoch().count();
-        uint64_t x = FIXED_RANDOM ^ key;
-        return x ^ (x >> 16);
-    }
+struct process {
+    int a, b;
+    bool is_query;
 };
-std::unordered_map<int, int, custom_hash> compress;
-std::size_t compress_values(std::vector<int> values) {
-    std::sort(values.begin(), values.end());
-    values.erase(std::unique(values.begin(), values.end()), values.end());
-    for (int i = 0; i < (int) values.size(); ++i) compress[values[i]] = i;
-    return values.size();
-}
 
 int main() {
     int n, q;
     std::cin >> n >> q;
-    std::vector<int> p(n), values;
+    std::vector<int> p(n);
     for (int i = 0; i < n; ++i) {
         std::cin >> p[i];
-        values.push_back(p[i]);
     }
-    std::vector<std::pair<int, int>> to_process;
-    std::vector<bool> is_query(q);
+    auto input_values = p;
+    std::vector<process> processes;
     for (int i = 0; i < q; ++i) {
         char type;
         int a, b;
         std::cin >> type >> a >> b;
+        bool is_query = false;
         if (type == '?') {
-            is_query[i] = true;
-            values.push_back(a);
+            is_query = true;
+            input_values.push_back(a);
         }
-        values.push_back(b);
-        to_process.emplace_back(a - !is_query[i], b);
+        input_values.push_back(b);
+        processes.push_back(process{a - !is_query, b, is_query});
     }
-    fenwick_tree<int> ft(compress_values(values));
+    compressor<int> comp(input_values); // compress all values in input down to O(N + Q)
+    fenwick_tree<int> ft(comp.compress());
     for (int i = 0; i < n; ++i) {
-        p[i] = compress[p[i]];
+        p[i] = comp.get(p[i]);
         ft.update_by(p[i], +1);
     }
-    for (int i = 0; i < q; ++i) {
-        auto [a, b] = to_process[i];
-        if (is_query[i]) {
-            std::cout << ft.query(compress[a], compress[b]) << '\n';
+    for (auto [a, b, is_query] : processes) {
+        if (is_query) {
+            std::cout << ft.query(comp.get(a), comp.get(b)) << '\n';
         } else {
             ft.update_by(p[a], -1);
-            p[a] = compress[b];
+            p[a] = comp.get(b);
             ft.update_by(p[a], +1);
         }
     }
