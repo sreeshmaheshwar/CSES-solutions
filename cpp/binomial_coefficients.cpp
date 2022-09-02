@@ -28,7 +28,7 @@ int factorial[MAX_FACTORIAL + 1];
 int inverse_factorial[MAX_FACTORIAL + 1];
 
 void precompute_factorials() {
-    factorial[0] = inverse_factorial[0] =  1;
+    factorial[0] = inverse_factorial[0] = 1;
     for (int i = 1; i <= MAX_FACTORIAL; ++i) {
         factorial[i] = mod_operations::multiply(i, factorial[i - 1]);
         inverse_factorial[i] = mod_operations::inverse(factorial[i]);
@@ -36,7 +36,8 @@ void precompute_factorials() {
 }
 
 int binomial_coefficient(int a, int b) {
-    assert(0 <= a && a <= MAX_FACTORIAL && 0 <= b && b <= MAX_FACTORIAL);
+    assert(0 <= a && a <= MAX_FACTORIAL);
+    assert(0 <= b && b <= a);
     return mod_operations::multiply(mod_operations::multiply(factorial[a], inverse_factorial[b]), inverse_factorial[a - b]);
 }
 
