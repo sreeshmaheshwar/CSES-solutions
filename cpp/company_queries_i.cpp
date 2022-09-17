@@ -20,11 +20,9 @@ int main() {
 	while (q--) {
 		int x, k;
 		std::cin >> x >> k;
-		for (int i = 0; i <= LOG && x > 0; ++i) {
-			if (k >> i & 1) {
+		for (int i = 0; i <= LOG && x > 0; ++i)
+			if (k >> i & 1)
 				x = binary_jump[i][x];
-			}
-		}
 		std::cout << x << '\n';
 	}
 	return 0;
