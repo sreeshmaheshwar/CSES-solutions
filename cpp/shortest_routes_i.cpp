@@ -17,7 +17,7 @@ int main() {
 
     std::priority_queue<std::pair<long long, int>, std::vector<std::pair<long long, int>>, std::greater<>> q;
     std::vector<long long> dist(n, INF);
-    std::vector<bool> fringe(n, false);
+    std::vector<bool> processed(n, false);
 
     int start_node = 0;
     dist[start_node] = 0;
@@ -26,8 +26,8 @@ int main() {
     while (!q.empty()) {
         int u = q.top().second;
         q.pop();
-        if (fringe[u]) continue;
-        fringe[u] = true;
+        if (processed[u]) continue;
+        processed[u] = true;
         for (auto [v, weight] : adj[u]) {
             if (dist[u] + weight < dist[v]) {
                 dist[v] = dist[u] + weight;
@@ -36,9 +36,7 @@ int main() {
         }
     }
 
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i)
         std::cout << dist[i] << " ";
-    }
-    std::cout << '\n';
     return 0;
 }
