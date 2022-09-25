@@ -8,8 +8,7 @@ int main() {
 	int n;
 	std::cin >> n;
 	std::vector<std::vector<int>> adj(n + 1);
-	while (--n) {
-		int a, b;
+	for (int i = 0, a, b; i < n - 1; ++i) {
 		std::cin >> a >> b;
 		adj[a].push_back(b);
 		adj[b].push_back(a);
@@ -23,6 +22,6 @@ int main() {
 	};
 	for (int iter = 0; iter < 2; ++iter)
 		dfs(farthest.second, 0, 0);
-	std::cout << farthest.first << '\n';
+	std::cout << farthest.first;
 	return 0;
 }

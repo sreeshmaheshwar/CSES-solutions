@@ -16,6 +16,6 @@ int main() {
 		cur_time += duration;
 		answer += deadline - cur_time;
 	}
-	std::cout << answer << '\n';
+	std::cout << answer;
 	return 0;
 }

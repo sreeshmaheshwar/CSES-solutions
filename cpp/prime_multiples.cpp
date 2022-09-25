@@ -2,13 +2,11 @@
 #include <vector>
 
 int main() {
-    long long n;
-    int k;
+    long long n, k;
     std::cin >> n >> k;
     std::vector<long long> primes(k);
-    for (long long &prime : primes) {
-        std::cin >> prime;
-    }
+    for (auto& p : primes)
+        std::cin >> p;
     long long union_size = 0;
     for (int mask = 1; mask < (1 << k); ++mask) {
         int subset_size = 0;
@@ -31,7 +29,7 @@ int main() {
             union_size += sign * intersection_size; 
         }
     }
-    std::cout << union_size << '\n';
+    std::cout << union_size;
     return 0;
 }
 

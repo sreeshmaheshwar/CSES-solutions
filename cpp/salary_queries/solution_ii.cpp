@@ -9,7 +9,7 @@ template <typename T> struct compressor {
     std::vector<T> values;
   public:
     compressor(std::vector<T> _values) : values(_values) {};
-    int compress() {
+    size_t compress() {
         std::sort(values.begin(), values.end());
         values.erase(std::unique(values.begin(), values.end()), values.end());
         for (int i = 0; i < (int) values.size(); ++i) {
@@ -17,7 +17,7 @@ template <typename T> struct compressor {
         }
         return values.size();
     }
-    int get(T value) {
+    int compressed_value(T value) {
         return compress_table[value];
     };    
 };
@@ -61,9 +61,8 @@ int main() {
     }
     auto input_values = p;
     std::vector<process> processes;
-    for (int i = 0; i < q; ++i) {
+    for (int i = 0, a, b; i < q; ++i) {
         char type;
-        int a, b;
         std::cin >> type >> a >> b;
         bool is_query = false;
         if (type == '?') {
@@ -73,18 +72,18 @@ int main() {
         input_values.push_back(b);
         processes.push_back(process{a - !is_query, b, is_query});
     }
-    compressor<int> comp(input_values); // compress all values in input down to O(N + Q)
-    fenwick_tree<int> ft(comp.compress());
+    compressor<int> C(input_values); // compress all values in input down to O(N + Q)
+    fenwick_tree<int> ft(C.compress());
     for (int i = 0; i < n; ++i) {
-        p[i] = comp.get(p[i]);
+        p[i] = C.compressed_value(p[i]);
         ft.update_by(p[i], +1);
     }
     for (auto [a, b, is_query] : processes) {
         if (is_query) {
-            std::cout << ft.query(comp.get(a), comp.get(b)) << '\n';
+            std::cout << ft.query(C.compressed_value(a), C.compressed_value(b)) << '\n';
         } else {
             ft.update_by(p[a], -1);
-            p[a] = comp.get(b);
+            p[a] = C.compressed_value(b);
             ft.update_by(p[a], +1);
         }
     }

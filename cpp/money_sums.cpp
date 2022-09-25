@@ -7,10 +7,9 @@ int main() {
 	std::cin >> n;
 	std::bitset<MAX_SUM + 1> sums;
 	sums[0] = 1;
-	for (int i = 0; i < n; ++i) {
-		int element;
-		std::cin >> element;
-		sums |= (sums << element);
+	for (int i = 0, x; i < n; ++i) {
+		std::cin >> x;
+		sums |= sums << x;
 	}
 	std::cout << sums.count() - 1 << '\n';
 	for (int i = 1; i <= MAX_SUM; ++i) 

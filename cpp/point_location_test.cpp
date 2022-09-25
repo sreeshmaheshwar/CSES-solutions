@@ -1,32 +1,32 @@
 #include <iostream>
 #include <vector>
 
-struct Point {
-	long long x, y;
+struct point {
+    long long x, y;
 
-	Point () {}
+    point () {}
 
-	Point(long long _x, long long _y) : x(_x), y(_y) {}
+    point(long long _x, long long _y) : x(_x), y(_y) {}
 
-	Point operator -(const Point& rhs) const {
-		return Point(x - rhs.x, y - rhs.y);
-	}
+    point operator-(const point& rhs) const {
+        return point(x - rhs.x, y - rhs.y);
+    }
 
-	long long operator *(const Point& rhs) const {
-		return x * rhs.y - rhs.x * y;
-	}
+    long long operator*(const point& rhs) const {
+        return x * rhs.y - rhs.x * y;
+    }
 };
 
 int main() {
-	int t; 
-	std::cin >> t;
-	while (t--) {
-		std::vector<Point> p(3);
-		for (int i = 0; i < 3; ++i) {
-			std::cin >> p[i].x >> p[i].y;
-		}
-		long long cross_prod = (p[2] - p[0]) * (p[1] - p[0]);
-		std::cout << (cross_prod == 0 ? "TOUCH" : (cross_prod < 0 ? "LEFT" : "RIGHT")) << '\n';
-	}
-	return 0;
+    int t; 
+    std::cin >> t;
+    while (t--) {
+        std::vector<point> points(3);
+        for (auto& [x, y] : points) 
+            std::cin >> x >> y;
+        
+        long long cross_prod = (points[2] - points[0]) * (points[1] - points[0]);
+        std::cout << (cross_prod == 0 ? "TOUCH" : (cross_prod < 0 ? "LEFT" : "RIGHT")) << '\n';
+    }
+    return 0;
 }

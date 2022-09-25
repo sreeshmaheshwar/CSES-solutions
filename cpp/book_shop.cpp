@@ -16,6 +16,6 @@ int main() {
 		for (int j = x; j >= h[i]; --j)
 			dp[j] = std::max(dp[j], dp[j - h[i]] + s[i]);
 
-	std::cout << dp[x] << '\n';
+	std::cout << dp[x];
 	return 0;
 }

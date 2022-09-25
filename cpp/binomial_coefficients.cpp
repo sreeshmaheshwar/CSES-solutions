@@ -45,8 +45,7 @@ int main() {
     precompute_factorials();
     int n;
     std::cin >> n;
-    while (n--) {       
-        int a, b;
+    for (int i = 0, a, b; i < n; ++i) {
         std::cin >> a >> b;
         std::cout << binomial_coefficient(a, b) << '\n';
     }

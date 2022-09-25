@@ -9,8 +9,7 @@ int main() {
 			divisor_count[j]++;
 	int n; 
 	std::cin >> n;
-	while (n--) {
-		int x; 
+	for (int i = 0, x; i < n; ++i) {
 		std::cin >> x;
 		std::cout << divisor_count[x] << '\n';
 	}

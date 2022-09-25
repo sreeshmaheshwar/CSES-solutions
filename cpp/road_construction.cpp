@@ -4,40 +4,47 @@
 
 struct union_find {
   private:
-	int cnt, mx_size = 1;
-	std::vector<int> sizes, link;
+    int num_components;
+	int max_size;
+    std::vector<int> sizes;
+	std::vector<int> link;
  
   public:
-	union_find(int n) : cnt(n), sizes(n, 1), link(n, 0) { std::iota(link.begin(), link.end(), 0); }
+    union_find(int n) : num_components(n), max_size(1), sizes(n, 1), link(n, 0) {
+        std::iota(link.begin(), link.end(), 0);
+    }
  
-	int find(int x) { return x == link[x] ? x : link[x] = find(link[x]); }
+    int find(int x) {
+        return x == link[x] ? x : link[x] = find(link[x]);
+    }
  
-	bool unite(int x, int y) {
-		x = find(x); 
-		y = find(y);
-		if (x == y) return false;
-		link[y] = x;
-		sizes[x] += sizes[y];
-		mx_size = std::max(mx_size, sizes[x]);
-		cnt--;
-		return true;
-	}
- 
-	int count() const { return cnt; }
+    bool unite(int x, int y) {
+        x = find(x), y = find(y);
+        if (x == y) return false;
+        link[y] = x;
+        sizes[x] += sizes[y];
+        num_components--;
+		max_size = std::max(max_size, sizes[x]);
+        return true;
+    }
 
-	int max_size() const { return mx_size; }
+    int count() {
+        return num_components;
+    }
+
+	int largest() {
+		return max_size;
+	}
 };
 
 int main() {
 	int n, m; 
 	std::cin >> n >> m;
 	union_find UF(n);
-	for (int i = 0; i < m; ++i) {
-		int u, v; 
+	for (int i = 0, u, v; i < m; ++i) {
 		std::cin >> u >> v;
-		u--, v--;
-		UF.unite(u, v);
-		std::cout << UF.count() << " " << UF.max_size() << '\n';
+		UF.unite(u - 1, v - 1);
+		std::cout << UF.count() << " " << UF.largest() << '\n';
 	}
 	return 0;
 }
