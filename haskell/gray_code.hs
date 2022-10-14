@@ -2,9 +2,10 @@ grayCode :: Int -> [String]
 grayCode 0
   = [""]
 grayCode n
-  = map ('0' :) prvCode ++ ['1' : last prvCode] ++ map ('1' :) (tail . reverse $ prvCode)
+  = map ('0' :) xs ++ (('1' : last xs) : map ('1' :) ys)
   where
-    prvCode = grayCode (n -1)
+    xs       = grayCode (n - 1)
+    (_ : ys) = reverse xs
 
 main :: IO ()
 main
