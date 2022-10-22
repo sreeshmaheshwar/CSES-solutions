@@ -8,12 +8,18 @@ public class Solution {
     Scanner scanner = new Scanner(System.in);
     int n = scanner.nextInt(), x = scanner.nextInt();
 
-    int[] waysToSum = new int[x + 1];
-    waysToSum[0] = 1;
+    int[] a = new int[n];
     for (int i = 0; i < n; ++i) {
-      int coin = scanner.nextInt();
-      for (int j = coin; j <= x; ++j) {
-        waysToSum[j] = (waysToSum[j] + waysToSum[j - coin]) % MOD;
+      a[i] = scanner.nextInt();
+    }
+
+    long[] waysToSum = new long[x + 1];
+    waysToSum[0] = 1;
+    for (int i = 1; i <= x; ++i) {
+      for (int j = 0; j < n; ++j) {
+        if (i - a[j] >= 0) {
+          waysToSum[i] = (waysToSum[i] + waysToSum[i - a[j]]) % MOD;
+        }
       }
     }
 
