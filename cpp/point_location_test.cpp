@@ -4,7 +4,7 @@
 struct point {
     long long x, y;
 
-    point () {}
+    point() {}
 
     point(long long _x, long long _y) : x(_x), y(_y) {}
 
